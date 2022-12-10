@@ -47,29 +47,27 @@ namespace AdventOfCode.Days.Y2022
 
 		protected override Task<object> ExecutePart1Async()
 		{
-			int SumOfSignalStrengths = 0;
-			int NextSignalStrength = 20;
-			int CycleCount = 0;
+			int sumOfSignalStrengths = 0;
+			int cycleCount = 0;
 			int registerX = 1;
 
 			foreach (var instr in Program)
 			{
 				for (int cycle = 0; cycle < Operands[instr.Key].Cycles; ++cycle)
 				{
-					++CycleCount;
+					++cycleCount;
 
-					if (CycleCount >= NextSignalStrength)
+					if (((cycleCount - 20) % 40) == 0)
 					{
-						SumOfSignalStrengths += CycleCount * registerX;
-						NextSignalStrength += 40;
-						if (NextSignalStrength == 260)
+						sumOfSignalStrengths += cycleCount * registerX;
+						if (cycleCount == 240)
 						{
 							break;
 						}
 					}
 				}
 
-				if (NextSignalStrength == 260)
+				if (cycleCount == 240)
 				{
 					break;
 				}
@@ -78,44 +76,44 @@ namespace AdventOfCode.Days.Y2022
 			}
 
 			return Task.FromResult<object>(
-				SumOfSignalStrengths
+				sumOfSignalStrengths
 			);
 		}
 
 		protected override Task<object> ExecutePart2Async()
 		{
-			string output = "";
-			int CycleCount = 0;
+			StringBuilder strBuilder = new StringBuilder();
+			int cycleCount = 0;
 			int registerX = 1;
 
 			foreach (var instr in Program)
 			{
 				for (int cycle = 0; cycle < Operands[instr.Key].Cycles; ++cycle)
 				{
-					++CycleCount;
+					++cycleCount;
 
-					int pixelX = (CycleCount % 40) - 1;
+					int pixelX = (cycleCount % 40) - 1;
 					if ((pixelX >= (registerX - 1)) && (pixelX <= (registerX + 1)))
 					{
-						output += "#";
+						strBuilder.Append("#");
 					}
 					else
 					{
-						output += ".";
+						strBuilder.Append(".");
 					}
 
-					if (CycleCount >= 240)
+					if (cycleCount >= 240)
 					{
 						break;
 					}
 
 					if (pixelX == -1)
 					{
-						output += "\n";
+						strBuilder.AppendLine();
 					}
 				}
 
-				if (CycleCount == 240)
+				if (cycleCount == 240)
 				{
 					break;
 				}
@@ -124,7 +122,7 @@ namespace AdventOfCode.Days.Y2022
 			}
 
 			return Task.FromResult<object>(
-				output
+				strBuilder.ToString()
 			);
 		}
 
