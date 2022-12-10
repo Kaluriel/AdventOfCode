@@ -1,0 +1,7 @@
+# Visual Studio folders
+.vs/
+bin/
+obj/
+
+# Data
+AdventOfCode/Data/
