@@ -125,19 +125,12 @@ namespace AdventOfCode.Days.Y2022
 					{
 						UInt64 val = GetValue(monkey.Expression[i], old);
 
-						switch (operation)
+						ret = operation switch
 						{
-							case "*":
-								ret *= val;
-								break;
-
-							case "+":
-								ret += val;
-								break;
-
-							default:
-								throw new NotImplementedException(operation);
-						}
+							"*" => ret * val,
+							"+" => ret + val,
+							_ => throw new NotImplementedException(operation)
+						};
 					}
 					else
 					{
