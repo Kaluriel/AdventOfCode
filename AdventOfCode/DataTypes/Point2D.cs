@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace AdventOfCode.DataTypes
+{
+	public struct Point2D
+	{
+		public int X { get; set; }
+		public int Y { get; set; }
+
+		public Point2D(int x, int y)
+		{
+			X = x;
+			Y = y;
+		}
+
+		public static Point2D operator +(Point2D p1, Point2D p2)
+		{
+			return new Point2D(p1.X + p2.X, p1.Y + p2.Y);
+		}
+
+		public static Point2D operator -(Point2D p1, Point2D p2)
+		{
+			return new Point2D(p1.X - p2.X, p1.Y - p2.Y);
+		}
+
+		public static bool operator ==(Point2D p1, Point2D p2)
+		{
+			return (p1.X == p2.X) && (p1.Y == p2.Y);
+		}
+
+		public static bool operator !=(Point2D p1, Point2D p2)
+		{
+			return (p1.X != p2.X) || (p1.Y != p2.Y);
+		}
+
+		public Point2D Sign()
+		{
+			return new Point2D(
+				Math.Sign(X),
+				Math.Sign(Y)
+			);
+		}
+
+		public override string ToString()
+		{
+			return $"{X}, {Y}";
+		}
+
+		public static readonly Point2D up = new Point2D(0, -1);
+		public static readonly Point2D down = new Point2D(0, 1);
+		public static readonly Point2D left = new Point2D(-1, 0);
+		public static readonly Point2D right = new Point2D(1, 0);
+
+		public static readonly IReadOnlyList<Point2D> OrthoDirections = new Point2D[]
+		{
+			Point2D.up,
+			Point2D.down,
+			Point2D.left,
+			Point2D.right,
+		};
+	}
+}
