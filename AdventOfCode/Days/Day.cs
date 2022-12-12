@@ -29,6 +29,9 @@ namespace AdventOfCode.Days
 
 		public async Task ExecuteAsync()
 		{
+#if DEBUG
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+#endif
 			StringBuilder strBuilder = new StringBuilder();
 #if TEST
 			int dataFileCount = GetTestFileCount();
@@ -41,6 +44,10 @@ namespace AdventOfCode.Days
 
 			for (int index = 0; index < dataFileCount; ++index)
 			{
+#if DEBUG
+				sw.Restart();
+#endif
+
 #if TEST
 				strBuilder.AppendLine($"Test {index + 1}");
 #endif
@@ -92,6 +99,11 @@ namespace AdventOfCode.Days
 				{
 					await CleanupAsync();
 				}
+
+#if DEBUG
+				sw.Stop();
+				strBuilder.AppendLine($"\tExecution Time: {sw.ElapsedMilliseconds}ms");
+#endif
 			}
 
 			Log(strBuilder.ToString());
