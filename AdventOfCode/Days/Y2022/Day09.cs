@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using AdventOfCode.Ext;
 using System.Text;
+using AdventOfCode.DataTypes;
 
 namespace AdventOfCode.Days.Y2022
 {
@@ -11,41 +12,11 @@ namespace AdventOfCode.Days.Y2022
 	{
 		private IReadOnlyDictionary<char, Point2D> Movement = new Dictionary<char, Point2D>()
 		{
-			{ 'U', new Point2D( 0, -1) },
-			{ 'D', new Point2D( 0,  1) },
-			{ 'L', new Point2D(-1,  0) },
-			{ 'R', new Point2D( 1,  0) },
+			{ 'U', Point2D.up },
+			{ 'D', Point2D.down },
+			{ 'L', Point2D.left },
+			{ 'R', Point2D.right },
 		};
-
-		private struct Point2D
-		{
-			public int X { get; set; }
-			public int Y { get; set; }
-
-			public Point2D(int x, int y)
-			{
-				X = x;
-				Y = y;
-			}
-
-			public static Point2D operator + (Point2D p1, Point2D p2)
-			{
-				return new Point2D(p1.X + p2.X, p1.Y + p2.Y);
-			}
-
-			public static Point2D operator - (Point2D p1, Point2D p2)
-			{
-				return new Point2D(p1.X - p2.X, p1.Y - p2.Y);
-			}
-
-			public Point2D Sign()
-			{
-				return new Point2D(
-					Math.Sign(X),
-					Math.Sign(Y)
-				);
-			}
-		}
 
 		private IEnumerable<KeyValuePair<char, int>> Instructions = Enumerable.Empty<KeyValuePair<char, int>>();
 
