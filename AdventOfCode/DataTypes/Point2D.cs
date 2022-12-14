@@ -15,6 +15,13 @@ namespace AdventOfCode.DataTypes
 			Y = y;
 		}
 
+		public Point2D(string str)
+		{
+			var parts = str.Split(new char[] { ',' });
+			X = int.Parse(parts[0]);
+			Y = int.Parse(parts[1]);
+		}
+
 		public static Point2D operator +(Point2D p1, Point2D p2)
 		{
 			return new Point2D(p1.X + p2.X, p1.Y + p2.Y);
@@ -52,6 +59,21 @@ namespace AdventOfCode.DataTypes
 		public static readonly Point2D down = new Point2D(0, 1);
 		public static readonly Point2D left = new Point2D(-1, 0);
 		public static readonly Point2D right = new Point2D(1, 0);
+
+		public override bool Equals(object? obj)
+		{
+			if (base.Equals(obj))
+			{
+				return this == ((Point2D)obj);
+			}
+
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return ToString().GetHashCode();
+		}
 
 		public static readonly IReadOnlyList<Point2D> OrthoDirections = new Point2D[]
 		{
