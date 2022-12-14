@@ -24,5 +24,22 @@ namespace AdventOfCode.Ext
                 source = source.Skip(stride);
             }
         }
+
+        public static IEnumerable<U> SelectWithNext<T, U>(this IEnumerable<T> source, Func<T, T, U> func, bool includeLast = false)
+        {
+            T prev = source.FirstOrDefault();
+            source = source.Skip(1);
+
+            foreach (var item in source)
+            {
+                yield return func(prev, item);
+                prev = item;
+            }
+
+            if (includeLast)
+            {
+                yield return func(prev, default);
+            }
+        }
     }
 }
