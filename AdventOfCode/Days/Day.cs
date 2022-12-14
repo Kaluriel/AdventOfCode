@@ -55,7 +55,7 @@ namespace AdventOfCode.Days
 				try
 				{
 #if TEST
-					var testResults = await ReadDayResultsFileAsync(index);
+					string[] testResults = await ReadDayResultsFileAsync(index);
 #endif
 					await LoadAsync(index);
 
@@ -69,18 +69,47 @@ namespace AdventOfCode.Days
 						ExecutePart2Async(),
 					};
 
-					// Wait for them to finish
-					var results = await Task.WhenAll(tasks);
-
 					// Output the results
-					for (int i = 0; i < results.Length; ++i)
+					for (int i = 0; i < tasks.Length; ++i)
 					{
-						string? strResult = results[i].ToString();
+						string? strResult = null;
+						bool exception = false;
 
 						strBuilder.Append($"\tPart {i + 1}");
+
+						try
+						{
+							strResult = (await tasks[i]).ToString();
+						}
+						catch (System.Exception ex)
+						{
+							strResult = ex.Message;
+							exception = true;
+						}
+
 #if TEST
 						bool success = strResult == testResults[i];
-						strBuilder.AppendLine($" [{(success ? "success" : "failed")}]");
+						bool skip = testResults[i] == "-";
+						string report = "failed";
+
+						if (skip)
+						{
+							report = "skipped";
+						}
+						else if (success)
+						{
+							report = "success";
+						}
+						else if (exception)
+						{
+							report = "exception";
+						}
+						strBuilder.AppendLine($" [{report}]");
+
+						if (skip)
+						{
+							continue;
+						}
 #else
 						strBuilder.AppendLine();
 #endif
@@ -140,7 +169,8 @@ namespace AdventOfCode.Days
 				GetDaySourceFilePath($"_{index:00}_Results")
 			))
 			.SplitDoubleNewLine()
-			.Select(x => x.Replace("\r\n", "\n"))
+			.Select(x => x.Replace("\r\n", "\n")
+						  .Replace("\n", Environment.NewLine))
 			.ToArray();
 		}
 
