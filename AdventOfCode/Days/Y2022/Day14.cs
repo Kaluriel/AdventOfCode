@@ -12,6 +12,13 @@ namespace AdventOfCode.Days.Y2022
 {
 	public class Day14 : DayBase2022
 	{
+		private static readonly IReadOnlyList<Point2D> SandActions = new Point2D[]
+		{
+			new Point2D( 0, 1),
+			new Point2D(-1, 1),
+			new Point2D( 1, 1),
+		};
+
 		private IEnumerable<Point2D[]> RockPaths = Enumerable.Empty<Point2D[]>();
 
 		protected override Task ExecuteSharedAsync()
@@ -62,67 +69,44 @@ namespace AdventOfCode.Days.Y2022
 
 			//DrawCave(caveLayout);
 
+			Point2D sand = sandSource;
 			bool foundAbyss = false;
-			int unit = 0;
+			int sandUnits = 0;
 
 			do
 			{
-				Point2D sand = sandSource + new Point2D(0, 0);
+				int i = 0;
 
-				do
+				for (; i < SandActions.Count; ++i)
 				{
-					if ((sand.Y + 1) >= caveLayout.Length)
+					Point2D nextPosition = sand + SandActions[i];
+
+					if ((nextPosition.X < minX) || (nextPosition.X >= maxX) || (nextPosition.Y >= caveLayout.Length))
 					{
 						foundAbyss = true;
 						break;
 					}
-					else if (caveLayout[sand.Y + 1][sand.X - minX] == '.')
+					else if (caveLayout[nextPosition.Y][nextPosition.X - minX] == '.')
 					{
-						sand.Y += 1;
+						sand = nextPosition;
+						break;
 					}
-					else
-					{
-						if ((sand.X - 1 - minX) < 0)
-						{
-							foundAbyss = true;
-							break;
-						}
-						else if (caveLayout[sand.Y + 1][sand.X - 1 - minX] == '.')
-						{
-							sand.X -= 1;
-							sand.Y += 1;
-						}
-						else if ((sand.X + 1 - minX) >= caveLayout[sand.Y].Length)
-						{
-							foundAbyss = true;
-							break;
-						}
-						else if (caveLayout[sand.Y + 1][sand.X + 1 - minX] == '.')
-						{
-							sand.X += 1;
-							sand.Y += 1;
-						}
-						else
-						{
-							break;
-						}
-					}
-
 				}
-				while (true);
 
-				if (!foundAbyss)
+				if (i == SandActions.Count)
 				{
 					caveLayout[sand.Y][sand.X - minX] = 'O';
-					++unit;
-				}
+					++sandUnits;
 
-				//DrawCave(caveLayout);
+					//DrawCave(caveLayout);
+
+					sand = sandSource;
+				}
 			}
 			while (!foundAbyss);
 
 			return Task.FromResult<object>(
-				unit
+				sandUnits
 			);
 		}
 
@@ -174,63 +158,48 @@ namespace AdventOfCode.Days.Y2022
 
 			//DrawCave(caveLayout);
 
-			Point2D sand;
-			int unit = 0;
+			Point2D sand = sandSource;
+			bool foundAbyss = false;
+			int sandUnits = 0;
 
 			do
 			{
-				sand = sandSource + new Point2D(0, 0);
+				int i = 0;
 
-				do
+				for (; i < SandActions.Count; ++i)
 				{
-					if ((sand.Y + 1) >= caveLayout.Length)
+					Point2D nextPosition = sand + SandActions[i];
+
+					if ((nextPosition.X < minX) || (nextPosition.X >= maxX) || (nextPosition.Y >= caveLayout.Length))
 					{
 						throw new Exception("Should be no abyss");
 					}
-					else if (caveLayout[sand.Y + 1][sand.X - minX] == '.')
+					else if (caveLayout[nextPosition.Y][nextPosition.X - minX] == '.')
 					{
-						sand.Y += 1;
+						sand = nextPosition;
+						break;
 					}
-					else
-					{
-						if ((sand.X - 1 - minX) < 0)
-						{
-							throw new Exception("Should be no abyss");
-						}
-						else if (caveLayout[sand.Y + 1][sand.X - 1 - minX] == '.')
-						{
-							sand.X -= 1;
-							sand.Y += 1;
-						}
-						else if ((sand.X + 1 - minX) >= caveLayout[sand.Y].Length)
-						{
-							throw new Exception("Should be no abyss");
-						}
-						else if (caveLayout[sand.Y + 1][sand.X + 1 - minX] == '.')
-						{
-							sand.X += 1;
-							sand.Y += 1;
-						}
-						else
-						{
-							break;
-						}
-					}
-
 				}
-				while (true);
 
-				//DrawCave(caveLayout);
+				if (i == SandActions.Count)
+				{
+					caveLayout[sand.Y][sand.X - minX] = 'O';
+					++sandUnits;
 
-				caveLayout[sand.Y][sand.X - minX] = 'O';
-				++unit;
+					//DrawCave(caveLayout);
+
+					if (sand == sandSource)
+					{
+						break;
+					}
+
+					sand = sandSource;
+				}
 			}
-			while (sand != sandSource);
-
-			//DrawCave(caveLayout);
+			while (!foundAbyss);
 
 			return Task.FromResult<object>(
-				unit
+				sandUnits
 			);
 		}
 
