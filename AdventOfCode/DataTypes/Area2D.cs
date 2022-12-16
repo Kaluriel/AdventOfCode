@@ -30,43 +30,42 @@ namespace AdventOfCode.DataTypes
 		public IEnumerable<Area2D> Subdivide()
 		{
 			Point2D halfSize = Size / 2;
-			
-			if (halfSize.X == 0 && halfSize.Y != 0)
-			{
-				halfSize.X = 1;
-			}
-			else if (halfSize.Y == 0 && halfSize.X != 0)
-			{
-				halfSize.Y = 1;
-			}
-
 			Point2D mid = Min + halfSize;
 
 			yield return new Area2D(Min, mid);
 
-			yield return new Area2D(
-				new Point2D(mid.X + 1, Min.Y),
-				new Point2D(Max.X, mid.Y)
-			);
+			if (Size.X > 1)
+			{
+				yield return new Area2D(
+					new Point2D(mid.X, Min.Y),
+					new Point2D(Max.X, mid.Y)
+				);
+			}
 
-			yield return new Area2D(
-				new Point2D(Min.X, mid.Y + 1),
-				new Point2D(mid.X, Max.Y)
-			);
+			if (Size.Y > 1)
+			{
+				yield return new Area2D(
+					new Point2D(Min.X, mid.Y),
+					new Point2D(mid.X, Max.Y)
+				);
+			}
 
-			yield return new Area2D(
-				mid + new Point2D(1, 1),
-				Max
-			);
+			if ((Size.X > 1) && (Size.Y > 1))
+			{
+				yield return new Area2D(
+					mid,
+					Max
+				);
+			}
 		}
 
 		public bool Overlaps(Area2D area)
 		{
-			bool xOverlap = (this.Min.X >= area.Min.X) && (this.Min.X <= area.Max.X) &&
-							(area.Min.X >= this.Min.X) && (area.Min.X <= this.Max.X);
+			bool xOverlap = ((this.Min.X >= area.Min.X) && (this.Min.X <= area.Max.X)) ||
+							((area.Min.X >= this.Min.X) && (area.Min.X <= this.Max.X));
 
-			bool yOverlap = (this.Min.Y >= area.Min.Y) && (this.Min.Y <= area.Max.Y) &&
-							(area.Min.Y >= this.Min.Y) && (area.Min.Y <= this.Max.Y);
+			bool yOverlap = ((this.Min.Y >= area.Min.Y) && (this.Min.Y <= area.Max.Y)) ||
+							((area.Min.Y >= this.Min.Y) && (area.Min.Y <= this.Max.Y));
 
 			return xOverlap && yOverlap;
 		}
