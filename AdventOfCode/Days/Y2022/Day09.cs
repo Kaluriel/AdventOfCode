@@ -12,10 +12,10 @@ namespace AdventOfCode.Days.Y2022
 	{
 		private IReadOnlyDictionary<char, Point2D> Movement = new Dictionary<char, Point2D>()
 		{
-			{ 'U', Point2D.up },
-			{ 'D', Point2D.down },
-			{ 'L', Point2D.left },
-			{ 'R', Point2D.right },
+			{ 'U', Point2D.Up },
+			{ 'D', Point2D.Down },
+			{ 'L', Point2D.Left },
+			{ 'R', Point2D.Right },
 		};
 
 		private IEnumerable<KeyValuePair<char, int>> Instructions = Enumerable.Empty<KeyValuePair<char, int>>();

@@ -35,11 +35,9 @@ namespace AdventOfCode.Days.Y2022
 		private IEnumerable<int> GetTotalCalories()
 		{
 			return Source.SplitDoubleNewLine()
-						 .Select(
-							x => x.SplitNewLine()
-						 		  .Select(int.Parse)
-						 		  .Sum()
-						 );
+						 .Select(x => x.SplitNewLine()
+						 			   .Select(int.Parse)
+						 			   .Sum());
 		}
 	}
 }

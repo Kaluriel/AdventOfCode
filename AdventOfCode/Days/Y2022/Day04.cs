@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using AdventOfCode.Ext;
+using AdventOfCode.DataTypes;
 
 namespace AdventOfCode.Days.Y2022
 {
 	public class Day04 : DayBase2022
 	{
-		private IEnumerable<KeyValuePair<Range, Range>> AssignmentPairs = Enumerable.Empty<KeyValuePair<Range, Range>>();
+		private IEnumerable<KeyValuePair<Line1D, Line1D>> AssignmentPairs = Enumerable.Empty<KeyValuePair<Line1D, Line1D>>();
 
 		protected override Task ExecuteSharedAsync()
 		{
@@ -19,35 +20,27 @@ namespace AdventOfCode.Days.Y2022
 		protected override Task<object> ExecutePart1Async()
 		{
 			return Task.FromResult<object>(
-				AssignmentPairs.Count(
-								   x => x.Key.Contains(x.Value) || x.Value.Contains(x.Key)
-							   )
+				AssignmentPairs.Count(x => x.Key.Contains(x.Value) || x.Value.Contains(x.Key))
 			);
 		}
 
 		protected override Task<object> ExecutePart2Async()
 		{
 			return Task.FromResult<object>(
-				AssignmentPairs.Count(
-								   x => x.Key.Overlaps(x.Value)
-							   )
+				AssignmentPairs.Count(x => x.Key.Overlaps(x.Value))
 			);
 		}
 
-		private IEnumerable<KeyValuePair<Range, Range>> GetAssignmentPairs()
+		private IEnumerable<KeyValuePair<Line1D, Line1D>> GetAssignmentPairs()
 		{
 			return Source.SplitNewLine(StringSplitOptions.RemoveEmptyEntries)
-						 .Select(
-							  x => x.Split(',')
-									.Select(y => y.Split('-').Select(int.Parse).ToArray())
-									.ToArray()
-						 )
-						 .Select(
-							 x => new KeyValuePair<Range, Range>(
-								 new Range(x[0][0], x[0][1]),
-								 new Range(x[1][0], x[1][1])
-							 )
-						 );
+						 .Select(x => x.Split(new char[] { ',', '-' })
+									   .Select(int.Parse)
+									   .ToArray())
+						 .Select(x => new KeyValuePair<Line1D, Line1D>(
+										  new Line1D(x[0], x[1]),
+										  new Line1D(x[2], x[3])
+									  ));
 		}
 	}
 }
