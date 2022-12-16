@@ -22,6 +22,11 @@ namespace AdventOfCode.DataTypes
 			Y = int.Parse(parts[1]);
 		}
 
+		public static Point2D operator /(Point2D p1, int denom)
+		{
+			return new Point2D(p1.X / denom, p1.Y / denom);
+		}
+
 		public static Point2D operator +(Point2D p1, Point2D p2)
 		{
 			return new Point2D(p1.X + p2.X, p1.Y + p2.Y);
@@ -50,15 +55,22 @@ namespace AdventOfCode.DataTypes
 			);
 		}
 
+		public int GetManhattenDistance(Point2D other)
+		{
+			return Math.Abs(this.X - other.X) + Math.Abs(this.Y - other.Y);
+		}
+
 		public override string ToString()
 		{
 			return $"{X}, {Y}";
 		}
 
-		public static readonly Point2D up = new Point2D(0, -1);
-		public static readonly Point2D down = new Point2D(0, 1);
-		public static readonly Point2D left = new Point2D(-1, 0);
-		public static readonly Point2D right = new Point2D(1, 0);
+		public static readonly Point2D Zero = new Point2D(0, 0);
+		public static readonly Point2D One = new Point2D(1, 1);
+		public static readonly Point2D Up = new Point2D(0, -1);
+		public static readonly Point2D Down = new Point2D(0, 1);
+		public static readonly Point2D Left = new Point2D(-1, 0);
+		public static readonly Point2D Right = new Point2D(1, 0);
 
 		public override bool Equals(object? obj)
 		{
@@ -77,10 +89,10 @@ namespace AdventOfCode.DataTypes
 
 		public static readonly IReadOnlyList<Point2D> OrthoDirections = new Point2D[]
 		{
-			Point2D.up,
-			Point2D.down,
-			Point2D.left,
-			Point2D.right,
+			Point2D.Up,
+			Point2D.Down,
+			Point2D.Left,
+			Point2D.Right,
 		};
 	}
 }
