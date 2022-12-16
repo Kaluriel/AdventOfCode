@@ -123,7 +123,7 @@ namespace AdventOfCode.Days.Y2022
 					new Point2D(minX, minY),
 					new Point2D(maxX, maxY)
 				),
-				Sensors
+				Sensors.ToArray()
 			);
 			if (point.HasValue)
 			{
@@ -135,28 +135,33 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		private Point2D? FindZeroCoveragePoint(Area2D area, IEnumerable<SensorInfo> sensors)
+		private Point2D? FindZeroCoveragePoint(Area2D area, SensorInfo[] sensors)
 		{
-			if (area.Size == Point2D.Zero)
+			if (!sensors.Any(x => x.Contains(area)))
 			{
-				if (sensors.All(x => !x.IsInRange(area.Min)))
+				foreach (var sub in area.Subdivide())
 				{
-					return area.Min;
-				}
+					if (sub.Size == Point2D.Zero)
+					{
+						if (sensors.Any(x => x.IsInRange(sub.Min)))
+						{
+							return null;
+						}
 
-				return null;
-			}
-			else if(sensors.Any(x => x.Contains(area)))
-			{
-				return null;
-			}
-
-			foreach (var sub in area.Subdivide())
-			{
-				var point = FindZeroCoveragePoint(sub, sensors.Where(x => new Area2D(x.SensorMin, x.SensorMax).Overlaps(sub)).ToArray());
-				if (point.HasValue)
-				{
-					return point;
+						return sub.Min;
+					}
+					else
+					{
+						var subSensors = sensors.Where(x => sub.Overlaps(new Area2D(x.SensorMin, x.SensorMax))).ToArray();
+						if (subSensors.Length > 0)
+						{
+							var point = FindZeroCoveragePoint(sub, subSensors);
+							if (point.HasValue)
+							{
+								return point;
+							}
+						}
+					}
 				}
 			}
 
