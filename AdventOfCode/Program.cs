@@ -20,6 +20,10 @@ namespace AdventOfCode
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
 			MainAsync().Wait();
+
+#if !DEBUG
+			Console.ReadLine();
+#endif
 		}
 
 		static async Task MainAsync()
@@ -41,6 +45,7 @@ namespace AdventOfCode
 				}
 
 				System.Diagnostics.Debug.WriteLine("");
+				Console.WriteLine("");
 			}
 		}
 
