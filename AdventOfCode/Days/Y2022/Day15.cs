@@ -19,7 +19,6 @@ namespace AdventOfCode.Days.Y2022
 			public Point2D SensorMax { get; }
 			public Point2D ClosestBeacon { get; }
 			public int ManhattenDistance { get; }
-			public bool IsValid { get; }
 
 			public SensorInfo(Point2D sensor, Point2D beacon)
 			{
@@ -28,7 +27,6 @@ namespace AdventOfCode.Days.Y2022
 				ManhattenDistance = Sensor.GetManhattenDistance(ClosestBeacon);
 				SensorMin = sensor - new Point2D(ManhattenDistance, ManhattenDistance);
 				SensorMax = sensor + new Point2D(ManhattenDistance, ManhattenDistance);
-				IsValid = true;
 			}
 
 			public int GetRowExtent(int row)
@@ -124,7 +122,8 @@ namespace AdventOfCode.Days.Y2022
 				new Area2D(
 					new Point2D(minX, minY),
 					new Point2D(maxX, maxY)
-				)
+				),
+				Sensors
 			);
 			if (point.HasValue)
 			{
@@ -136,29 +135,25 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		private Point2D? FindZeroCoveragePoint(Area2D area)
+		private Point2D? FindZeroCoveragePoint(Area2D area, IEnumerable<SensorInfo> sensors)
 		{
-			if ((area.Size.X == 0) || (area.Size.Y == 0))
+			if (area.Size == Point2D.Zero)
 			{
-				return null;
-			}
-
-			if (Sensors.Any(x => x.Contains(area)))
-			{
-				return null;
-			}
-			
-			if (area.IsOne)
-			{
-				if (Sensors.All(x => !x.IsInRange(area.Min)))
+				if (sensors.All(x => !x.IsInRange(area.Min)))
 				{
 					return area.Min;
 				}
+
+				return null;
+			}
+			else if(sensors.Any(x => x.Contains(area)))
+			{
+				return null;
 			}
 
 			foreach (var sub in area.Subdivide())
 			{
-				var point = FindZeroCoveragePoint(sub);
+				var point = FindZeroCoveragePoint(sub, sensors.Where(x => new Area2D(x.SensorMin, x.SensorMax).Overlaps(sub)).ToArray());
 				if (point.HasValue)
 				{
 					return point;
