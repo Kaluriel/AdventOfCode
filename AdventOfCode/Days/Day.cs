@@ -29,9 +29,7 @@ namespace AdventOfCode.Days
 
 		public async Task ExecuteAsync()
 		{
-#if DEBUG
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-#endif
 			StringBuilder strBuilder = new StringBuilder();
 #if TEST
 			int dataFileCount = GetTestFileCount();
@@ -44,10 +42,6 @@ namespace AdventOfCode.Days
 
 			for (int index = 0; index < dataFileCount; ++index)
 			{
-#if DEBUG
-				sw.Restart();
-#endif
-
 #if TEST
 				strBuilder.AppendLine($"Test {index + 1}");
 #endif
@@ -62,24 +56,34 @@ namespace AdventOfCode.Days
 					// Execute any shared tasks initially
 					await ExecuteSharedAsync();
 
-					// Now execute our part tasks
-					var tasks = new[]
-					{
-						ExecutePart1Async(),
-						ExecutePart2Async(),
-					};
-
 					// Output the results
-					for (int i = 0; i < tasks.Length; ++i)
+					for (int part = 0; part < 2; ++part)
 					{
 						string? strResult = null;
 						bool exception = false;
 
-						strBuilder.Append($"\tPart {i + 1}");
+						strBuilder.Append($"\tPart {part + 1}");
+
+						sw.Restart();
 
 						try
 						{
-							strResult = (await tasks[i]).ToString();
+							var task = part switch
+							{
+								0 => ExecutePart1Async(),
+								1 => ExecutePart2Async(),
+								_ => throw new NotImplementedException(part.ToString())
+							};
+
+							task = task.ContinueWith(
+								x =>
+								{
+									sw.Stop();
+									return x;
+								}
+							).Unwrap();
+
+							strResult = (await task).ToString();
 						}
 						catch (System.Exception ex)
 						{
@@ -88,11 +92,17 @@ namespace AdventOfCode.Days
 						}
 
 #if TEST
-						bool success = strResult == testResults[i];
-						bool skip = testResults[i] == "-";
-						string report = "failed";
+						bool success = strResult == testResults[part];
+						bool skip = testResults[part] == "-";
+#endif
+						string? report = null;
 
-						if (skip)
+						if (exception)
+						{
+							report = "exception";
+						}
+#if TEST
+						else if (skip)
 						{
 							report = "skipped";
 						}
@@ -100,18 +110,31 @@ namespace AdventOfCode.Days
 						{
 							report = "success";
 						}
-						else if (exception)
+						else
 						{
-							report = "exception";
+							report = "failed";
 						}
-						strBuilder.AppendLine($" [{report}]");
+#endif
 
+						if (!string.IsNullOrWhiteSpace(report))
+						{
+							strBuilder.Append($" [{report}]");
+						}
+
+						if (sw.ElapsedMilliseconds == 0)
+						{
+							strBuilder.AppendLine($" - {(int)(sw.Elapsed.TotalMilliseconds * 1000.0)}ns");
+						}
+						else
+						{
+							strBuilder.AppendLine($" - {sw.ElapsedMilliseconds}ms");
+						}
+
+#if TEST
 						if (skip)
 						{
 							continue;
 						}
-#else
-						strBuilder.AppendLine();
 #endif
 						strBuilder.AppendLine($"\t\t{strResult?.Replace("\n", "\n\t\t")}");
 
@@ -119,7 +142,7 @@ namespace AdventOfCode.Days
 						if (!success)
 						{
 							strBuilder.AppendLine($"\t[expected]:");
-							strBuilder.AppendLine($"\t\t{testResults[i]?.Replace("\n", "\n\t\t")}");
+							strBuilder.AppendLine($"\t\t{testResults[part]?.Replace("\n", "\n\t\t")}");
 						}
 #endif
 					}
@@ -128,11 +151,6 @@ namespace AdventOfCode.Days
 				{
 					await CleanupAsync();
 				}
-
-#if DEBUG
-				sw.Stop();
-				strBuilder.AppendLine($"\tExecution Time: {sw.ElapsedMilliseconds}ms");
-#endif
 			}
 
 			Log(strBuilder.ToString());
@@ -146,9 +164,10 @@ namespace AdventOfCode.Days
 		protected abstract Task<object> ExecutePart1Async();
 		protected abstract Task<object> ExecutePart2Async();
 
-		protected static void Log(string solution)
+		protected static void Log(string text)
 		{
-			System.Diagnostics.Debug.WriteLine(solution);
+			System.Diagnostics.Debug.WriteLine(text);
+			Console.WriteLine(text);
 		}
 
 		protected Task<string> ReadDayDataFileAsync(int index = 0)
