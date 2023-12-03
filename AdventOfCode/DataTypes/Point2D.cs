@@ -60,6 +60,11 @@ namespace AdventOfCode.DataTypes
 			return Math.Abs(this.X - other.X) + Math.Abs(this.Y - other.Y);
 		}
 
+		public bool IsAdjacent(Point2D point)
+		{
+			return (Math.Abs(point.X - X) <= 1) && (Math.Abs(point.Y - Y) <= 1);
+		}
+
 		public override string ToString()
 		{
 			return $"{X}, {Y}";
