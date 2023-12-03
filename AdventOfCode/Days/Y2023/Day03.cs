@@ -9,8 +9,22 @@ namespace AdventOfCode.Days.Y2023
 {
 	public class Day03 : DayBase2023
 	{
-		List<KeyValuePair<string, List<Point2D>>> Numbers = new List<KeyValuePair<string, List<Point2D>>>();
-		List<KeyValuePair<Point2D, char>> Symbols = new List<KeyValuePair<Point2D, char>>();
+		struct Number
+		{
+			public int Value { get; set; }
+			public List<Point2D> Locations { get; set; }
+		}
+
+		struct Symbol
+		{
+			public char Value { get; set; }
+			public Point2D Location { get; set; }
+		}
+
+		private const char kGearSymbol = '*';
+		
+		List<Number> Numbers = new List<Number>();
+		List<Symbol> Symbols = new List<Symbol>();
 		
 		protected override Task ExecuteSharedAsync()
 		{
@@ -32,16 +46,20 @@ namespace AdventOfCode.Days.Y2023
 							}
 						}
 
-						string valStr = lines[y].Substring(startX, x - startX);
-						List<Point2D> points = new List<Point2D>(valStr.Length);
+						ReadOnlySpan<char> numberSpan = lines[y].AsSpan(startX, x - startX);
+						List<Point2D> points = new List<Point2D>(numberSpan.Length);
 
-						for (int i = 0; i < valStr.Length; ++i)
+						for (int i = 0; i < numberSpan.Length; ++i)
 						{
 							points.Add(new Point2D(startX + i, y));
 						}
 						
 						Numbers.Add(
-							new KeyValuePair<string, List<Point2D>>(valStr, points)
+							new Number()
+							{
+								Value = int.Parse(numberSpan),
+								Locations = points
+							}
 						);
 
 						--x;
@@ -49,7 +67,11 @@ namespace AdventOfCode.Days.Y2023
 					else if (lines[y][x] != '.')
 					{
 						Symbols.Add(
-							new KeyValuePair<Point2D, char>(new Point2D(x, y), lines[y][x])
+							new Symbol()
+							{
+								Value = lines[y][x],
+								Location = new Point2D(x, y)
+							}
 						);
 					}
 				}
@@ -61,30 +83,39 @@ namespace AdventOfCode.Days.Y2023
 		protected override Task<object> ExecutePart1Async()
 		{
 			return Task.FromResult<object>(
+						// find valid part numbers..
 				Numbers.Where(
-							number => number.Value.Any(
+							// ..by checking if they are adjacent to symbols
+							number => number.Locations.Any(
 								numberLoc => Symbols.Any(
-									symbol => numberLoc.IsAdjacent(symbol.Key)
+									symbol => numberLoc.IsAdjacent(symbol.Location)
 								)
 							)
 						)
-					   .Select(x => int.Parse(x.Key))
-					   .Sum()
+						// sum up all these valid part numbers
+					   .Sum(x => x.Value)
 			);
 		}
 
 		protected override Task<object> ExecutePart2Async()
 		{
 			return Task.FromResult<object>(
-				Symbols.Select(
+				// only check gears
+				Symbols.Where(x => x.Value == kGearSymbol)
+                // select numbers..
+				.Select(
+	                // ..that are adjacent to the gear
 					symbol => Numbers.Where(
-						number => number.Value.Any(
-							numberLoc => numberLoc.IsAdjacent(symbol.Key)
-                        )
+						number => number.Locations.IsAdjacent(symbol.Location)
 					)
+					// ..take three at most so we know if it is invalid
+					.Take(3)
 				)
+                // gears are only valid if there is exactly two numbers adjacent
 				.Where(gearCodes => gearCodes.Count() == 2)
-				.Select(gearCodes => gearCodes.Aggregate(1, (x, gearCode) => x * int.Parse(gearCode.Key)))
+                // multiply numbers together
+				.Select(gearCodes => gearCodes.Aggregate(1, (x, gearCode) => x * gearCode.Value))
+                // add the resulting values together
 				.Sum()
 			);
 		}
