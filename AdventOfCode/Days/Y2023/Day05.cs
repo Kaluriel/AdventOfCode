@@ -114,25 +114,34 @@ namespace AdventOfCode.Days.Y2023
 
 		protected override Task<object> ExecutePart2Async()
 		{
-			Int64 ret = int.MaxValue;
+			Int64[] results = new Int64[Seeds.Length / 2];
 
-			for (int i = 0; i < Seeds.Length; i += 2)
-			{
-				for (int r = 0; r < Seeds[i + 1]; ++r)
+			Parallel.For(
+				0,
+				results.Length,
+				(int index) =>
 				{
-					Int64 newVal = Seeds[i] + r;
-
-					for (int j = 0; j < Conversions.Length; ++j)
+					Int64 ret = int.MaxValue;
+					int i = index * 2;
+					
+					for (int r = 0; r < Seeds[i + 1]; ++r)
 					{
-						newVal = Conversions[j].Convert(newVal);
-					}
+						Int64 newVal = Seeds[i] + r;
 
-					ret = Math.Min(newVal, ret);
+						for (int j = 0; j < Conversions.Length; ++j)
+						{
+							newVal = Conversions[j].Convert(newVal);
+						}
+
+						ret = Math.Min(newVal, ret);
+					}
+					
+					results[index] = ret;
 				}
-			}
+			);
 			
 			return Task.FromResult<object>(
-				ret
+				results.Min()
 			);
 		}
 	}
