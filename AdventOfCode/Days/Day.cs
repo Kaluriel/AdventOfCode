@@ -92,7 +92,7 @@ namespace AdventOfCode.Days
 							}
 							catch (System.Exception ex)
 							{
-								strResult = ex.Message;
+								strResult = ex.Message + Environment.NewLine + ex.StackTrace;
 								exception = true;
 							}
 						}
