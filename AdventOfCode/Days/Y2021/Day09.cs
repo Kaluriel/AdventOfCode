@@ -9,7 +9,7 @@ namespace AdventOfCode.Days.Y2021
 {
     public class Day09 : DayBase2021
     {
-        protected override Task<object> ExecutePart1Async()
+        protected override Task<object> ExecutePart1Async(int testIndex)
         {
             var grid = Source.SplitNewLine()
                              .Select(
@@ -27,7 +27,7 @@ namespace AdventOfCode.Days.Y2021
             );
         }
 
-        protected override Task<object> ExecutePart2Async()
+        protected override Task<object> ExecutePart2Async(int testIndex)
         {
             var grid = Source.SplitNewLine()
                 .Select(

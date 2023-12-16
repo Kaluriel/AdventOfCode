@@ -21,7 +21,7 @@ namespace AdventOfCode.Days.Y2021
             }
         }
 
-        protected override Task<object> ExecutePart1Async()
+        protected override Task<object> ExecutePart1Async(int testIndex)
         {
             var parts = Source.Split(',')
                                   .Select(x => x.Split('=')[1])
@@ -77,7 +77,7 @@ namespace AdventOfCode.Days.Y2021
             );
         }
 
-        protected override Task<object> ExecutePart2Async()
+        protected override Task<object> ExecutePart2Async(int testIndex)
         {
             var parts = Source.Split(',')
                               .Select(x => x.Split('=')[1])

@@ -24,7 +24,7 @@ namespace AdventOfCode.Days.Y2022
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			var stackList = DuplicateCrateStacks();
 
@@ -45,7 +45,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			var stackList = DuplicateCrateStacks();
 

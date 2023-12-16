@@ -43,7 +43,7 @@ namespace AdventOfCode.Days.Y2023
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			return Task.FromResult<object>(
 				Scratchcards.Select(x => x.Numbers.Count(y => x.WinningNumbers.Contains(y)))
@@ -51,7 +51,7 @@ namespace AdventOfCode.Days.Y2023
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			int[] winningCounts = Scratchcards.Select(x => x.Numbers.Count(y => x.WinningNumbers.Contains(y)))
 											  .ToArray();

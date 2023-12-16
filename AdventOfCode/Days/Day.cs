@@ -40,18 +40,18 @@ namespace AdventOfCode.Days
 			strBuilder.AppendLine($"{GetType().Name}");
 			strBuilder.AppendLine($"------------------");
 
-			for (int index = 0; index < dataFileCount; ++index)
+			for (int testIndex = 0; testIndex < dataFileCount; ++testIndex)
 			{
 #if TEST
-				strBuilder.AppendLine($"Test {index + 1}");
+				strBuilder.AppendLine($"Test {testIndex + 1}");
 #endif
 
 				try
 				{
 #if TEST
-					string[] testResults = await ReadDayResultsFileAsync(index);
+					string[] testResults = await ReadDayResultsFileAsync(testIndex);
 #endif
-					await LoadAsync(index);
+					await LoadAsync(testIndex);
 
 					// Execute any shared tasks initially
 					await ExecuteSharedAsync();
@@ -75,8 +75,8 @@ namespace AdventOfCode.Days
 							{
 								var task = part switch
 								{
-									0 => ExecutePart1Async(),
-									1 => ExecutePart2Async(),
+									0 => ExecutePart1Async(testIndex),
+									1 => ExecutePart2Async(testIndex),
 									_ => throw new NotImplementedException(part.ToString())
 								};
 
@@ -166,8 +166,8 @@ namespace AdventOfCode.Days
 			return Task.CompletedTask;
 		}
 
-		protected abstract Task<object> ExecutePart1Async();
-		protected abstract Task<object> ExecutePart2Async();
+		protected abstract Task<object> ExecutePart1Async(int testIndex);
+		protected abstract Task<object> ExecutePart2Async(int testIndex);
 
 		protected static void Log(string text)
 		{

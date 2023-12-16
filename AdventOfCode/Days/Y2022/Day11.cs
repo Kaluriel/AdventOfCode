@@ -37,7 +37,7 @@ namespace AdventOfCode.Days.Y2022
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			MonkeyData[] monkeyData = Monkeys.Select(x => new MonkeyData(x))
 											 .ToArray();
@@ -55,7 +55,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			MonkeyData[] monkeyData = Monkeys.Select(x => new MonkeyData(x))
 											 .ToArray();

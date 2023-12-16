@@ -30,7 +30,7 @@ namespace AdventOfCode.Days.Y2023
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			int[] errorMargin = new int[RaceDataP1[0].Length];
 
@@ -53,7 +53,7 @@ namespace AdventOfCode.Days.Y2023
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			Int64 errorMargin = 0;
 

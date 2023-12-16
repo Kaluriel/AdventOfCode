@@ -22,7 +22,7 @@ namespace AdventOfCode.Days.Y2023
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			List<List<Int64>>[] numbers = Numbers.Select(
 													 x => new List<List<Int64>>()
@@ -57,7 +57,7 @@ namespace AdventOfCode.Days.Y2023
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			List<List<Int64>>[] numbers = Numbers.Select(
 													 x => new List<List<Int64>>()

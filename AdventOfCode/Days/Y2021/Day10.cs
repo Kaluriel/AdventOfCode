@@ -32,7 +32,7 @@ namespace AdventOfCode.Days.Y2021
             {'<', '>' },
         };
 
-        protected override Task<object> ExecutePart1Async()
+        protected override Task<object> ExecutePart1Async(int testIndex)
         {
             var score = Source.SplitNewLine()
                               .Select(GetSyntaxErrorScore)
@@ -44,7 +44,7 @@ namespace AdventOfCode.Days.Y2021
             );
         }
 
-        protected override Task<object> ExecutePart2Async()
+        protected override Task<object> ExecutePart2Async(int testIndex)
         {
             var scores = Source.SplitNewLine()
                                .Where(IsIncomplete)

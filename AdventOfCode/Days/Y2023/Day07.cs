@@ -67,7 +67,7 @@ namespace AdventOfCode.Days.Y2023
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			return Task.FromResult<object>(
 				Hands.OrderBy(hand => DetermineHandType(hand.Cards))
@@ -77,7 +77,7 @@ namespace AdventOfCode.Days.Y2023
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			return Task.FromResult<object>(
 				Hands.OrderBy(hand => DetermineHandTypeWithWildcards(hand.Cards))

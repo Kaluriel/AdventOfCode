@@ -81,7 +81,7 @@ namespace AdventOfCode.Days.Y2022
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			SensorInfo[] sensorsTrackingRow = Sensors.Where(x => (x.SensorMin.Y <= Part1Row) && (x.SensorMax.Y >= Part1Row))
 													 .OrderBy(x => x.Sensor.X - x.GetRowExtent(Part1Row))
@@ -110,7 +110,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			int minX = Math.Max(Sensors.Min(x => x.SensorMin.X), LowestCoordinate);
 			int maxX = Math.Min(Sensors.Max(x => x.SensorMax.X), HighestCoordinate);

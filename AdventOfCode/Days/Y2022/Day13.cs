@@ -78,7 +78,7 @@ namespace AdventOfCode.Days.Y2022
 			}
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			return Task.FromResult<object>(
 				Source.SplitDoubleNewLine()
@@ -96,7 +96,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			const string twoElement = "[[2]]";
 			const string sixElement = "[[6]]";

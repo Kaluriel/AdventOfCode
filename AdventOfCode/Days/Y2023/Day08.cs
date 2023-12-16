@@ -40,7 +40,7 @@ namespace AdventOfCode.Days.Y2023
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			string currentMap = "AAA";
 			int steps = 0;
@@ -58,7 +58,7 @@ namespace AdventOfCode.Days.Y2023
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			string[] currentMaps = (string[])StartLocations.Clone();
 			Int64[] steps = new Int64[currentMaps.Length];

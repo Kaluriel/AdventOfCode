@@ -45,7 +45,7 @@ namespace AdventOfCode.Days.Y2022
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			int sumOfSignalStrengths = 0;
 			int cycleCount = 0;
@@ -80,7 +80,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			StringBuilder strBuilder = new StringBuilder();
 			int cycleCount = 0;

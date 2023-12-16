@@ -7,7 +7,7 @@ namespace AdventOfCode.Days.Y2021
 {
     public class Day06 : DayBase2021
     {
-        protected override Task<object> ExecutePart1Async()
+        protected override Task<object> ExecutePart1Async(int testIndex)
         {
             var fish_ages = Source.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
             int[] ages = new int[9];
@@ -37,7 +37,7 @@ namespace AdventOfCode.Days.Y2021
             );
         }
 
-        protected override Task<object> ExecutePart2Async()
+        protected override Task<object> ExecutePart2Async(int testIndex)
         {
             var fish_ages = Source.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => long.Parse(x));
             long[] ages = new long[9];

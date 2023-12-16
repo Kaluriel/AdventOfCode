@@ -41,7 +41,7 @@ namespace AdventOfCode.Days.Y2022
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			return Task.FromResult<object>(
 				Directories.Select(x => x.DirectorySize)
@@ -50,7 +50,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			int freeSpace = 70000000 - (RootDirectory?.DirectorySize ?? 0);
 			int spaceNeeded = 30000000 - freeSpace;

@@ -21,14 +21,14 @@ namespace AdventOfCode.Days.Y2023
 			new KeyValuePair<string, string>("nine", "n9e"),
 		};
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			return Task.FromResult<object>(
 				GetCalibrationValue(false)
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			return Task.FromResult<object>(
 				GetCalibrationValue(true)

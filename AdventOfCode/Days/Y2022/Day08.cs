@@ -17,7 +17,7 @@ namespace AdventOfCode.Days.Y2022
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			bool[][] treeVisible = TreeHeights.Select(x => x.Select(x => false)
 															.ToArray())
@@ -101,7 +101,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			int[][] scenicScore = TreeHeights.Select(x => x.Select(x => 0)
 														   .ToArray())

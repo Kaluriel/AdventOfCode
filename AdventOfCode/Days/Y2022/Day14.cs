@@ -27,7 +27,7 @@ namespace AdventOfCode.Days.Y2022
 			return base.ExecuteSharedAsync();
 		}
 
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			int minX = RockPaths.Min(x => x.Min(y => y.X));
 			int maxX = RockPaths.Max(x => x.Max(y => y.X + 1));
@@ -110,7 +110,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			int maxY = RockPaths.Max(x => x.Max(y => y.Y + 1)) + 2;
 			int minX = RockPaths.Min(x => x.Min(y => y.X)) - maxY;

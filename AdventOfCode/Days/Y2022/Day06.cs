@@ -9,7 +9,7 @@ namespace AdventOfCode.Days.Y2022
 {
 	public class Day06 : DayBase2022
 	{
-		protected override Task<object> ExecutePart1Async()
+		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
 			int marker = FindDistinctCharacters(4);
 
@@ -18,7 +18,7 @@ namespace AdventOfCode.Days.Y2022
 			);
 		}
 
-		protected override Task<object> ExecutePart2Async()
+		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
 			int marker = FindDistinctCharacters(14);
 

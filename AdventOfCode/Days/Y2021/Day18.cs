@@ -516,7 +516,7 @@ namespace AdventOfCode.Days.Y2021
             }
         }
 
-        protected override Task<object> ExecutePart1Async()
+        protected override Task<object> ExecutePart1Async(int testIndex)
         {
             for (int i = 0; i < day18_reduce_test.Length; ++i)
             {
@@ -559,7 +559,7 @@ namespace AdventOfCode.Days.Y2021
             );
         }
 
-        protected override Task<object> ExecutePart2Async()
+        protected override Task<object> ExecutePart2Async(int testIndex)
         {
             var parts = Source.SplitNewLine()
                               .Select(x => new SnailfishMathPair(x))
