@@ -22,6 +22,11 @@ namespace AdventOfCode.DataTypes
 			Y = int.Parse(parts[1]);
 		}
 
+		public static Point2D operator -(Point2D p1)
+		{
+			return new Point2D(-p1.X, -p1.Y);
+		}
+
 		public static Point2D operator /(Point2D p1, int denom)
 		{
 			return new Point2D(p1.X / denom, p1.Y / denom);
@@ -94,10 +99,10 @@ namespace AdventOfCode.DataTypes
 
 		public static readonly IReadOnlyList<Point2D> OrthoDirections = new Point2D[]
 		{
-			Point2D.Up,
-			Point2D.Down,
-			Point2D.Left,
-			Point2D.Right,
+			Up,
+			Down,
+			Left,
+			Right,
 		};
 	}
 }

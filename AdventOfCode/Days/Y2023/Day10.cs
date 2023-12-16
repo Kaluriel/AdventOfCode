@@ -93,17 +93,39 @@ namespace AdventOfCode.Days.Y2023
 
 		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
+			var path = GetLoopingPath(Start);
+
+			return Task.FromResult<object>(
+				path.Count / 2
+			);
+		}
+
+		protected override Task<object> ExecutePart2Async(int testIndex)
+		{
+			var path = GetLoopingPath(Start);
+			
+			return Task.FromResult<object>(
+				PipeMap.Sum(
+					pl => pl.Where(p => !path.Contains(p))
+									.Count(p => MathExt.IsInsidePolygon(p.Location, path.Select(pathPoint => pathPoint.Location)
+																									 .ToArray()))
+				)
+			);
+		}
+
+		private List<PipeInfo> GetLoopingPath(PipeInfo start)
+		{
 			List<PipeInfo> visited = new List<PipeInfo>(PipeMap.Length * PipeMap[0].Length)
 			{
-				Start
+				start
 			};
 
 			List<PipeInfo> path = new List<PipeInfo>()
 			{
-				Start
+				start
 			};
 			
-			PipeInfo next = PipeMap[Start.Points.First().Y][Start.Points.First().X];
+			PipeInfo next = PipeMap[start.Points.First().Y][start.Points.First().X];
 
 			while (next != null)
 			{
@@ -116,16 +138,7 @@ namespace AdventOfCode.Days.Y2023
 								  .FirstOrDefault(p => !visited.Contains(p));
 			}
 
-			return Task.FromResult<object>(
-				path.Count / 2
-			);
-		}
-
-		protected override Task<object> ExecutePart2Async(int testIndex)
-		{
-			return Task.FromResult<object>(
-				"-"
-			);
+			return path;
 		}
 	}
 }
