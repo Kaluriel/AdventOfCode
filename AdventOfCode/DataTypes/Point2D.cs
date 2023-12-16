@@ -42,6 +42,16 @@ namespace AdventOfCode.DataTypes
 			return new Point2D(p1.X - p2.X, p1.Y - p2.Y);
 		}
 
+		public static Point2D operator *(Point2D p1, int mul)
+		{
+			return new Point2D(p1.X * mul, p1.Y * mul);
+		}
+
+		public static Point2D operator *(int mul, Point2D p1)
+		{
+			return new Point2D(p1.X * mul, p1.Y * mul);
+		}
+
 		public static bool operator ==(Point2D p1, Point2D p2)
 		{
 			return (p1.X == p2.X) && (p1.Y == p2.Y);
@@ -65,6 +75,13 @@ namespace AdventOfCode.DataTypes
 			return Math.Abs(this.X - other.X) + Math.Abs(this.Y - other.Y);
 		}
 
+		public bool IsOrthoAdjacent(Point2D point)
+		{
+			int distX = Math.Abs(point.X - X);
+			int distY = Math.Abs(point.Y - Y);
+			return ((distX <= 1) && (distY <= 1)) && ((distX ^ distY) == 1);
+		}
+
 		public bool IsAdjacent(Point2D point)
 		{
 			return (Math.Abs(point.X - X) <= 1) && (Math.Abs(point.Y - Y) <= 1);
@@ -81,6 +98,10 @@ namespace AdventOfCode.DataTypes
 		public static readonly Point2D Down = new Point2D(0, 1);
 		public static readonly Point2D Left = new Point2D(-1, 0);
 		public static readonly Point2D Right = new Point2D(1, 0);
+		public static readonly Point2D UpLeft = new Point2D(-1, -1);
+		public static readonly Point2D UpRight = new Point2D(1, -1);
+		public static readonly Point2D DownLeft = new Point2D(-1, 1);
+		public static readonly Point2D DownRight = new Point2D(1, 1);
 
 		public override bool Equals(object? obj)
 		{
@@ -103,6 +124,18 @@ namespace AdventOfCode.DataTypes
 			Down,
 			Left,
 			Right,
+		};
+
+		public static readonly IReadOnlyList<Point2D> Directions = new Point2D[]
+		{
+			Up,
+			Down,
+			Left,
+			Right,
+			UpLeft,
+			UpRight,
+			DownLeft,
+			DownRight,
 		};
 	}
 }
