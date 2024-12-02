@@ -8,7 +8,7 @@ namespace AdventOfCode
 {
 	class Program
 	{
-		static readonly int Year = 2023;
+		static readonly int Year = 2024;
 
 		static readonly IEnumerable<Day> Days = ReflectionExt.GetTypeSubclasses<Day>(new object[0])
 															 .Where(x => x.Year == Year)

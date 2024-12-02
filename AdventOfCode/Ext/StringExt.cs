@@ -31,6 +31,14 @@ namespace AdventOfCode.Ext
 			);
 		}
 
+		public static string[] SplitNewLineAndSpaces(this string str, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
+		{
+			return str.Split(
+				new string[] { "\r\n", "\n", " " },
+				stringSplitOptions
+			);
+		}
+
 		/*public static IEnumerable<string> SplitNewLine(this string str, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
 		{
 			return str.SplitAsEnumerable(

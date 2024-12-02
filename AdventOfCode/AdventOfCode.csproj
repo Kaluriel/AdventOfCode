@@ -21,4 +21,8 @@
     <Exec Command="xcopy &quot;$(ProjectDir)Data\*.*&quot; &quot;$(TargetDir)\Data&quot; /Y /I /E" />
   </Target>
 
+  <Target Name="GenerateSomeFiles" BeforeTargets="BeforeBuild">
+    <Exec Command="xcopy &quot;$(ProjectDir)Data\*.*&quot; &quot;$(TargetDir)\Data&quot; /Y /I /E" />
+  </Target>
+
 </Project>
