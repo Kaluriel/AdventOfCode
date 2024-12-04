@@ -25,14 +25,9 @@ namespace AdventOfCode.Days.Y2024
 			return base.ExecuteSharedAsync();
 		}
 
-		private bool IsWordInGrid(string word, int startX, int startY, int dX, int dY, bool reverseWord = false)
+		private bool IsWordInGrid(string word, int startX, int startY, int dX, int dY)
 		{
 			bool ret = true;
-
-			if (reverseWord && (word.Length > 0))
-			{
-				word = new string(word.ToCharArray().Reverse().ToArray());
-			}
 
 			for (int i = 1; i < word.Length; ++i)
 			{
@@ -185,26 +180,26 @@ namespace AdventOfCode.Days.Y2024
 					
 					if ((index > 0) && ((index + 1) < FindWordP2.Length))
 					{
-						string left = FindWordP2.Substring(0, index + 1);
+						string left = FindWordP2.Substring(0, index + 1).Reverse();
 						string right = FindWordP2.Substring(index);
 
-						if (IsWordInGrid(left, x, y, -1, -1, true) && IsWordInGrid(right, x, y, 1, 1))
+						if (IsWordInGrid(left, x, y, -1, -1) && IsWordInGrid(right, x, y, 1, 1))
 						{
 							hasTopLeft = true;
 							hasBottomRight = true;
 						}
-						else if (IsWordInGrid(right, x, y, -1, -1) && IsWordInGrid(left, x, y, 1, 1, true))
+						else if (IsWordInGrid(right, x, y, -1, -1) && IsWordInGrid(left, x, y, 1, 1))
 						{
 							hasTopLeft = true;
 							hasBottomRight = true;
 						}
 						
-						if (IsWordInGrid(left, x, y, -1, 1, true) && IsWordInGrid(right, x, y, 1, -1))
+						if (IsWordInGrid(left, x, y, -1, 1) && IsWordInGrid(right, x, y, 1, -1))
 						{
 							hasTopRight = true;
 							hasBottomLeft = true;
 						}
-						else if (IsWordInGrid(right, x, y, -1, 1) && IsWordInGrid(left, x, y, 1, -1, true))
+						else if (IsWordInGrid(right, x, y, -1, 1) && IsWordInGrid(left, x, y, 1, -1))
 						{
 							hasTopRight = true;
 							hasBottomLeft = true;
@@ -214,27 +209,12 @@ namespace AdventOfCode.Days.Y2024
 					{
 						string word = (index == 0)
 							? FindWordP2
-							: new string(FindWordP2.ToCharArray().Reverse().ToArray());
+							: FindWordP2.Reverse();
 
-						if (IsWordInGrid(word, x, y, -1, -1))
-						{
-							hasTopLeft = true;
-						}
-						
-						if (IsWordInGrid(word, x, y, 1, -1))
-						{
-							hasTopRight = true;
-						}
-						
-						if (IsWordInGrid(word, x, y, 1, 1))
-						{
-							hasBottomLeft = true;
-						}
-						
-						if (IsWordInGrid(word, x, y, 1, 1))
-						{
-							hasBottomRight = true;
-						}
+						hasTopLeft = IsWordInGrid(word, x, y, -1, -1);
+						hasTopRight = IsWordInGrid(word, x, y, 1, -1);
+						hasBottomLeft = IsWordInGrid(word, x, y, 1, 1);						
+						hasBottomRight = IsWordInGrid(word, x, y, 1, 1);
 					}*/
 
 					if (hasTopLeft && hasTopRight && hasBottomLeft && hasBottomRight)

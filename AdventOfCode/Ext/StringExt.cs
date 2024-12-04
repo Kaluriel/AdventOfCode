@@ -102,5 +102,14 @@ namespace AdventOfCode.Ext
 
 			return strBuilder.ToString();
 		}
+
+		public static string Reverse(this string str)
+		{
+			return new string(
+				str.ToCharArray()
+					.Reverse()
+					.ToArray()
+			);
+		}
 	}
 }
