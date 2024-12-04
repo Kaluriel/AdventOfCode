@@ -41,5 +41,15 @@ namespace AdventOfCode.Ext
                 yield return func(prev, default);
             }
         }
+
+        public static IEnumerable<IEnumerable<T>> PermutationsOfOneRemoved<T>(this IEnumerable<T> source)
+        {
+            return Enumerable
+                .Range(0, source.Count())
+                .Select(i => source
+                    .Take(i)
+                    .Concat(source.Skip(i + 1))
+                );
+        }
     }
 }
