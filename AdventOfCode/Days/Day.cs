@@ -37,8 +37,7 @@ namespace AdventOfCode.Days
 			int dataFileCount = 1;
 #endif
 
-			strBuilder.AppendLine($"{GetType().Name}");
-			strBuilder.AppendLine($"------------------");
+			strBuilder.AppendLine($"--- [ {GetType().Name} ] -----------------------");
 
 			for (int testIndex = 0; testIndex < dataFileCount; ++testIndex)
 			{
@@ -59,6 +58,13 @@ namespace AdventOfCode.Days
 					// Output the results
 					for (int part = 0; part < 2; ++part)
 					{
+#if TEST
+						if ((part >= testResults.Length) || testResults[part] == "-")
+						{
+							continue;
+						}
+#endif
+						
 						string? strResult = null;
 						bool exception = false;
 
@@ -66,39 +72,33 @@ namespace AdventOfCode.Days
 
 						sw.Restart();
 
-#if TEST
-						bool skip = (part >= testResults.Length) || testResults[part] == "-";
-						if (!skip)
-#endif
+						try
 						{
-							try
+							var task = part switch
 							{
-								var task = part switch
+								0 => ExecutePart1Async(testIndex),
+								1 => ExecutePart2Async(testIndex),
+								_ => throw new NotImplementedException(part.ToString())
+							};
+
+							task = task.ContinueWith(
+								x =>
 								{
-									0 => ExecutePart1Async(testIndex),
-									1 => ExecutePart2Async(testIndex),
-									_ => throw new NotImplementedException(part.ToString())
-								};
+									sw.Stop();
+									return x;
+								}
+							).Unwrap();
 
-								task = task.ContinueWith(
-									x =>
-									{
-										sw.Stop();
-										return x;
-									}
-								).Unwrap();
-
-								strResult = (await task).ToString();
-							}
-							catch (System.Exception ex)
-							{
-								strResult = ex.Message + Environment.NewLine + ex.StackTrace;
-								exception = true;
-							}
+							strResult = (await task).ToString();
+						}
+						catch (System.Exception ex)
+						{
+							strResult = ex.Message + Environment.NewLine + ex.StackTrace;
+							exception = true;
 						}
 
 #if TEST
-						bool success = skip || (strResult == testResults[part]);
+						bool success = (strResult == testResults[part]);
 #endif
 						string? report = null;
 
@@ -107,10 +107,6 @@ namespace AdventOfCode.Days
 							report = "exception";
 						}
 #if TEST
-						else if (skip)
-						{
-							report = "skipped";
-						}
 						else if (success)
 						{
 							report = "success";
@@ -135,21 +131,16 @@ namespace AdventOfCode.Days
 							strBuilder.AppendLine($" - {sw.ElapsedMilliseconds}ms");
 						}
 
-#if TEST
-						if (skip)
-						{
-							continue;
-						}
-#endif
-						strBuilder.AppendLine($"\t\t{strResult?.Replace("\n", "\n\t\t")}");
+						strBuilder.Append($"\t\t{strResult?.Replace("\n", "\n\t\t")}");
 
 #if TEST
 						if (!success)
 						{
-							strBuilder.AppendLine($"\t[expected]:");
-							strBuilder.AppendLine($"\t\t{testResults[part]?.Replace("\n", "\n\t\t")}");
+							strBuilder.Append($" [expected {testResults[part]?.Replace("\n", "\n\t\t")}]");
 						}
 #endif
+
+						strBuilder.AppendLine();
 					}
 				}
 				finally
