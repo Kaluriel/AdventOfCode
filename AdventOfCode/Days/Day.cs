@@ -64,7 +64,7 @@ namespace AdventOfCode.Days
 							continue;
 						}
 #endif
-						
+
 						string? strResult = null;
 						bool exception = false;
 
@@ -142,6 +142,10 @@ namespace AdventOfCode.Days
 
 						strBuilder.AppendLine();
 					}
+				}
+				catch (Exception ex)
+				{
+					Log(ex.Message);
 				}
 				finally
 				{
