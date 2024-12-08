@@ -28,6 +28,8 @@ namespace AdventOfCode
 
 		static async Task MainAsync()
 		{
+			Day.Log($"--- [ YEAR {Year} ] -------------------");
+
 			var days = Days;
 #if !TEST
 			days = days.TakeLast(1);

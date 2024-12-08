@@ -164,7 +164,7 @@ namespace AdventOfCode.Days
 		protected abstract Task<object> ExecutePart1Async(int testIndex);
 		protected abstract Task<object> ExecutePart2Async(int testIndex);
 
-		protected static void Log(string text)
+		public static void Log(string text)
 		{
 			System.Diagnostics.Debug.WriteLine(text);
 			Console.WriteLine(text);
@@ -227,6 +227,26 @@ namespace AdventOfCode.Days
 		protected string GetDaySourceFilePath(string suffix = "")
 		{
 			return GetDaySourceFolderPath() + GetDaySourceFileName(suffix);
+		}
+		
+		public static string DrawGrid(char[][] grid)
+		{
+			StringBuilder strBuilder = new StringBuilder();
+
+			for (int y = 0; y < grid.Length; ++y)
+			{
+				if (y > 0)
+				{
+					strBuilder.AppendLine();
+				}
+
+				for (int x = 0; x < grid[y].Length; ++x)
+				{
+					strBuilder.Append($"{grid[y][x]}");
+				}
+			}
+
+			return strBuilder.ToString();
 		}
 	}
 }

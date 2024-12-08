@@ -121,21 +121,21 @@ namespace AdventOfCode.DataTypes
 		public static readonly IReadOnlyList<Point2D> OrthoDirections = new Point2D[]
 		{
 			Up,
+			Right,
 			Down,
 			Left,
-			Right,
 		};
 
 		public static readonly IReadOnlyList<Point2D> Directions = new Point2D[]
 		{
 			Up,
-			Down,
-			Left,
-			Right,
-			UpLeft,
 			UpRight,
-			DownLeft,
+			Right,
 			DownRight,
+			Down,
+			DownLeft,
+			Left,
+			UpLeft,
 		};
 	}
 }

@@ -159,26 +159,6 @@ namespace AdventOfCode.Days.Y2021
             return grid;
         }
 
-        private static string DrawGrid(char[][] grid)
-        {
-            StringBuilder strBuilder = new StringBuilder();
-
-            for (int y = 0; y < grid.Length; ++y)
-            {
-                if (y > 0)
-                {
-                    strBuilder.AppendLine();
-                }
-
-                for (int x = 0; x < grid[y].Length; ++x)
-                {
-                    strBuilder.Append($"{grid[y][x]}");
-                }
-            }
-
-            return strBuilder.ToString();
-        }
-
         private static char[][] FoldGrid(char[][] grid, Fold fold)
         {
             char[][] newGrid = CreateGrid(
