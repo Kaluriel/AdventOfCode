@@ -9,7 +9,7 @@ UpgradeLog.htm
 .idea
 
 # Data
-AdventOfCode/Data/*/*
+AdventOfCode/Data
 
 # Backup
 Backup
