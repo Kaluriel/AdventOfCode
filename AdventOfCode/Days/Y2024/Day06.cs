@@ -15,7 +15,7 @@ namespace AdventOfCode.Days.Y2024
 	{
 		private char[][] Map;
 		private Point2D StartPoint;
-		private int StartDirectionIndex = 0;
+		private readonly int StartDirectionIndex = 0;
 
 		protected override Task ExecuteSharedAsync()
 		{
@@ -65,7 +65,7 @@ namespace AdventOfCode.Days.Y2024
 		{
 			List<Point2D> points = new List<Point2D>();
 			GetNavigationPoints(points, Map);
-
+			
 			int loopObstacleCount = 0;
 
 			Parallel.For(

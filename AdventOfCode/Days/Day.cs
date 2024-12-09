@@ -117,26 +117,26 @@ namespace AdventOfCode.Days
 						}
 #endif
 
+						strBuilder.Append($" [");
 						if (!string.IsNullOrWhiteSpace(report))
 						{
-							strBuilder.Append($" [{report}]");
+							strBuilder.Append($"{report} in ");
 						}
-
 						if (sw.ElapsedMilliseconds == 0)
 						{
-							strBuilder.AppendLine($" - {(int)(sw.Elapsed.TotalMilliseconds * 1000.0)}ns");
+							strBuilder.Append($"{(int)(sw.Elapsed.TotalMilliseconds * 1000.0)}ns");
 						}
 						else
 						{
-							strBuilder.AppendLine($" - {sw.ElapsedMilliseconds}ms");
+							strBuilder.Append($"{sw.ElapsedMilliseconds}ms");
 						}
 
-						strBuilder.Append($"\t\t{strResult?.Replace("\n", "\n\t\t")}");
+						strBuilder.Append($"] => {strResult?.Replace("\n", "\n\t\t")}");
 
 #if TEST
 						if (!success)
 						{
-							strBuilder.Append($" [expected {testResults[part]?.Replace("\n", "\n\t\t")}]");
+							strBuilder.Append($" (Expected {testResults[part]?.Replace("\n", "\n\t\t")})");
 						}
 #endif
 
