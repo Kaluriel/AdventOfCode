@@ -41,5 +41,10 @@ namespace AdventOfCode.Ext
 
 			return result;
 		}
+
+		public static int DigitCount(double value)
+		{
+			return (int)Math.Floor(Math.Log10(value) + 1);
+		}
 	}
 }

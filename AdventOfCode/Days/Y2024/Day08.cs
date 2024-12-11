@@ -12,7 +12,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day08 : DayBase2024
+	public sealed class Day08 : Day
 	{
 		private Dictionary<char, Point2D[]> Antennas = new Dictionary<char, Point2D[]>();
 		private char[][] Map;

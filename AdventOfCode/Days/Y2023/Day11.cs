@@ -7,7 +7,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2023
 {
-	public class Day11 : DayBase2023
+	public sealed class Day11 : Day
 	{
 		private Point2D[] Galaxies;
 

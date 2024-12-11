@@ -7,7 +7,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2023
 {
-	public class Day08 : DayBase2023
+	public sealed class Day08 : Day
 	{
 		private int[] Directions;
 		private Dictionary<string, string[]> Maps;

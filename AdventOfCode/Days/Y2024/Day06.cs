@@ -11,7 +11,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day06 : DayBase2024
+	public sealed class Day06 : Day
 	{
 		private char[][] Map;
 		private Point2D StartPoint;
@@ -104,10 +104,10 @@ namespace AdventOfCode.Days.Y2024
 				
 				/*map[loc.Y][loc.X] = 'X';
 
-				Log(
+				Logging.Log(
 					DrawGrid(map)
 				);
-				Log("");*/
+				Logging.Log("");*/
 
 				try_again:
 				if (!visited.Add((loc, directionIndex)))

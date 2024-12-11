@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day14 : DayBase2022
+	public sealed class Day14 : Day
 	{
 		private static readonly IReadOnlyList<Point2D> SandActions = new Point2D[]
 		{

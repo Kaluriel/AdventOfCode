@@ -6,7 +6,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day01 : DayBase2024
+	public sealed class Day01 : Day
 	{
 		protected override Task<object> ExecutePart1Async(int testIndex)
 		{

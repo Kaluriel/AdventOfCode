@@ -6,7 +6,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day02 : DayBase2022
+	public sealed class Day02 : Day
 	{
 		private static IReadOnlyDictionary<char, IReadOnlyDictionary<char, int>> WinLUT = new Dictionary<char, IReadOnlyDictionary<char, int>>()
 		{

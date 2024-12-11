@@ -7,7 +7,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2023
 {
-	public class Day04 : DayBase2023
+	public sealed class Day04 : Day
 	{
 		class Card
 		{

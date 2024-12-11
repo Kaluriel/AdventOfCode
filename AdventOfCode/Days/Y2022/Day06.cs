@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day06 : DayBase2022
+	public sealed class Day06 : Day
 	{
 		protected override Task<object> ExecutePart1Async(int testIndex)
 		{

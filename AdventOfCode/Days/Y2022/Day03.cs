@@ -6,7 +6,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day03 : DayBase2022
+	public sealed class Day03 : Day
 	{
 		private IEnumerable<string> RuckSacks = Enumerable.Empty<string>();
 

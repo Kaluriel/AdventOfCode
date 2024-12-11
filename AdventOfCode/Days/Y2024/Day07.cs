@@ -12,7 +12,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day07 : DayBase2024
+	public sealed class Day07 : Day
 	{
 		private (Int64 TestValue, Int64[] Values)[] Calibrations;
 

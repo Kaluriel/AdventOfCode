@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day10 : DayBase2022
+	public sealed class Day10 : Day
 	{
 		delegate void OperandAction(ref int registerX, int val);
 

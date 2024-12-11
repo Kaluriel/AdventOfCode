@@ -9,7 +9,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day05 : DayBase2024
+	public sealed class Day05 : Day
 	{
 		private int[][] PageOrderingRules;
 		private int[][] PagesToProduceInEachUpdate;

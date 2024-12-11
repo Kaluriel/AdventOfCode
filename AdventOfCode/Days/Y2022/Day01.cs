@@ -6,7 +6,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day01 : DayBase2022
+	public sealed class Day01 : Day
 	{
 		private IEnumerable<int> TotalCalories = Enumerable.Empty<int>();
 

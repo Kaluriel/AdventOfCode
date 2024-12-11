@@ -1,8 +1,10 @@
 ﻿using AdventOfCode.Ext;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdventOfCode.Utils;
 
 namespace AdventOfCode.Days
 {
@@ -10,10 +12,23 @@ namespace AdventOfCode.Days
 	{
 		public string Source { get; private set; } = string.Empty;
 		public int Year { get; }
+		public int DayNumber { get; }
 
-		protected Day(int year)
+		protected Day()
 		{
-			Year = year;
+			Year = GetType().FullName?
+				.Split('.')
+				.Reverse()
+				.Skip(1)
+				.Select(s => s.Substring(1))
+				.Select(int.Parse)
+				.First() ?? throw new Exception("Type field FullName is null");
+			DayNumber = GetType().Name
+				.Split('.')
+				.Reverse()
+				.Select(s => s.Substring(3))
+				.Select(int.Parse)
+				.First();
 		}
 
 		private async Task LoadAsync(int index)
@@ -145,7 +160,7 @@ namespace AdventOfCode.Days
 				}
 				catch (Exception ex)
 				{
-					Log(ex.Message);
+					Logging.Log(ex.Message);
 				}
 				finally
 				{
@@ -153,7 +168,7 @@ namespace AdventOfCode.Days
 				}
 			}
 
-			Log(strBuilder.ToString());
+			Logging.Log(strBuilder.ToString());
 		}
 
 		protected virtual Task ExecuteSharedAsync()
@@ -163,12 +178,6 @@ namespace AdventOfCode.Days
 
 		protected abstract Task<object> ExecutePart1Async(int testIndex);
 		protected abstract Task<object> ExecutePart2Async(int testIndex);
-
-		public static void Log(string text)
-		{
-			System.Diagnostics.Debug.WriteLine(text);
-			Console.WriteLine(text);
-		}
 
 		protected Task<string> ReadDayDataFileAsync(int index = 0)
 		{
@@ -247,6 +256,19 @@ namespace AdventOfCode.Days
 			}
 
 			return strBuilder.ToString();
+		}
+
+		protected IEnumerable<IEnumerable<char>> CreateCharMapFromSource(string source)
+		{
+			return source.SplitNewLine();
+		}
+
+		protected IEnumerable<IEnumerable<int>> CreateIntMapFromSource(string source)
+		{
+			return source
+				.SplitNewLine()
+				.Select(line => line
+					.Select(c => c - '0'));
 		}
 	}
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day12 : DayBase2022
+	public sealed class Day12 : Day
 	{
 		private struct Location
 		{

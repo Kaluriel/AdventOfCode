@@ -7,7 +7,7 @@ using AdventOfCode.DataTypes;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day04 : DayBase2022
+	public sealed class Day04 : Day
 	{
 		private IEnumerable<KeyValuePair<Line1D, Line1D>> AssignmentPairs = Enumerable.Empty<KeyValuePair<Line1D, Line1D>>();
 

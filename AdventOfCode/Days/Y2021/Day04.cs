@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days.Y2021
 {
-    public class Day04 : DayBase2021
+    public sealed class Day04 : Day
     {
         public struct BingoNumber
         {

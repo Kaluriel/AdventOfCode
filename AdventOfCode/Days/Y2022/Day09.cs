@@ -8,7 +8,7 @@ using AdventOfCode.DataTypes;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day09 : DayBase2022
+	public sealed class Day09 : Day
 	{
 		private IReadOnlyDictionary<char, Point2D> Movement = new Dictionary<char, Point2D>()
 		{

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day11 : DayBase2022
+	public sealed class Day11 : Day
 	{
 		private class Monkey
 		{

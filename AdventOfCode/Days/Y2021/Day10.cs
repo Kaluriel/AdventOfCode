@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days.Y2021
 {
-    public class Day10 : DayBase2021
+    public sealed class Day10 : Day
     {
         private static IReadOnlyDictionary<char, int> SyntaxErrorScore { get; } = new Dictionary<char, int>()
         {

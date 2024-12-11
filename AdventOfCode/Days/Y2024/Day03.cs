@@ -8,7 +8,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day03 : DayBase2024
+	public sealed class Day03 : Day
 	{
 		private readonly Regex Regex = new Regex("mul\\((\\d{1,3}),(\\d{1,3})\\)");
 

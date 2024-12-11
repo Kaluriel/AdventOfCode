@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days.Y2021
 {
-    public class Day03 : DayBase2021
+    public sealed class Day03 : Day
     {
         protected override Task<object> ExecutePart1Async(int testIndex)
         {

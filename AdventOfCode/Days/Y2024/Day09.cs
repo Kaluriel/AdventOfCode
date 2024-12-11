@@ -12,7 +12,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day09 : DayBase2024
+	public sealed class Day09 : Day
 	{
 		private struct Block
 		{
@@ -70,31 +70,33 @@ namespace AdventOfCode.Days.Y2024
 				.ToList();
 			
 			for (int i = fileSystem.Count - 1; i >= 0; --i)
-			{ 
-				if (fileSystem[i].File != -1)
+			{
+				if (fileSystem[i].File == -1)
 				{
-					int blockCount = fileSystem[i].Count;
+					continue;
+				}
 
-					int index = fileSystem.FindIndex(x => (x.File == -1) && (x.Count >= blockCount));
-					if ((index == -1) || (index >= i))
-					{
-						continue;
-					}
+				int blockCount = fileSystem[i].Count;
 
-					int freeBlockSize = fileSystem[index].Count;
+				int index = fileSystem.FindIndex(x => (x.File == -1) && (x.Count >= blockCount));
+				if ((index == -1) || (index >= i))
+				{
+					continue;
+				}
 
-					fileSystem[index] = fileSystem[i];
-					fileSystem[i] = new Block
-					{
-						File = -1,
-						Count = blockCount,
-					};
+				int freeBlockSize = fileSystem[index].Count;
 
-					if (freeBlockSize > blockCount)
-					{
-						fileSystem.Insert(index + 1, new Block { File = -1, Count = freeBlockSize - blockCount });
-						++i;
-					}
+				fileSystem[index] = fileSystem[i];
+				fileSystem[i] = new Block
+				{
+					File = -1,
+					Count = blockCount,
+				};
+
+				if (freeBlockSize > blockCount)
+				{
+					fileSystem.Insert(index + 1, new Block { File = -1, Count = freeBlockSize - blockCount });
+					++i;
 				}
 			}
 			

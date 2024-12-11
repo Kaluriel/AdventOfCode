@@ -6,7 +6,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2023
 {
-	public class Day01 : DayBase2023
+	public sealed class Day01 : Day
 	{
 		private readonly KeyValuePair<string, string>[] kNumberAsWords = new[]
 		{

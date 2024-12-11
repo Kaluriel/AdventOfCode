@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day13 : DayBase2022
+	public sealed class Day13 : Day
 	{
 		private class PacketComparer : IComparer<JsonElement>
 		{

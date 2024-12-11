@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days.Y2021
 {
-    public class Day17 : DayBase2021
+    public sealed class Day17 : Day
     {
         struct D17Range
         {

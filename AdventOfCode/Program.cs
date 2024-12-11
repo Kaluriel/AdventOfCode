@@ -3,12 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdventOfCode.Utils;
 
 namespace AdventOfCode
 {
 	class Program
 	{
-		static readonly int Year = 2024;
+		static readonly int? YearOverride = null;
+		static readonly int? DayOverride = null;
+		private static bool UseLastestDay = true;
+
+		static int Year => YearOverride ?? DateTime.UtcNow.Year;
 
 		static readonly IEnumerable<Day> Days = ReflectionExt.GetTypeSubclasses<Day>(new object[0])
 															 .Where(x => x.Year == Year)
@@ -28,12 +33,18 @@ namespace AdventOfCode
 
 		static async Task MainAsync()
 		{
-			Day.Log($"--- [ YEAR {Year} ] -------------------");
+			Logging.Log($"--- [ YEAR {Year} ] -------------------");
 
 			var days = Days;
-#if !TEST
-			days = days.TakeLast(1);
-#endif
+
+			if (DayOverride.HasValue)
+			{
+				days = days.Where(day => day.DayNumber == DayOverride.Value);
+			}
+			else if (UseLastestDay)
+			{
+				days = days.TakeLast(1);
+			}
 
 			foreach (Day day in days)
 			{

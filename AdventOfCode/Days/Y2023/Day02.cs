@@ -6,7 +6,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2023
 {
-	public class Day02 : DayBase2023
+	public sealed class Day02 : Day
 	{
 		enum ECubeColor
 		{

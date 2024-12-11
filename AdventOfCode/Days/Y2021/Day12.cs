@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days.Y2021
 {
-    public class Day12 : DayBase2021
+    public sealed class Day12 : Day
     {
         class Cave
         {

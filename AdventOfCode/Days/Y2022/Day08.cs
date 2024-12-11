@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AdventOfCode.Days.Y2022
 {
-	public class Day08 : DayBase2022
+	public sealed class Day08 : Day
 	{
 		private int[][] TreeHeights = new int[0][];
 

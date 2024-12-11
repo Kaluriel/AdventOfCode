@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days.Y2021
 {
-    public class Day15 : DayBase2021
+    public sealed class Day15 : Day
     {
         class AStarNode
         {

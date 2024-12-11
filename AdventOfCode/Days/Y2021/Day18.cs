@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days.Y2021
 {
-    public class Day18 : DayBase2021
+    public sealed class Day18 : Day
     {
         static (SnailfishMathPair, long)[] day18_mag_test = new[]
         {

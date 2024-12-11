@@ -9,7 +9,7 @@ using AdventOfCode.Ext;
 
 namespace AdventOfCode.Days.Y2024
 {
-	public class Day04 : DayBase2024
+	public sealed class Day04 : Day
 	{
 		private readonly string FindWordP1 = "XMAS";
 		private readonly string FindWordP2 = "MAS";
