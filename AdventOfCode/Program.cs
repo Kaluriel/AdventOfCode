@@ -11,7 +11,7 @@ namespace AdventOfCode
 	{
 		static readonly int? YearOverride = null;
 		static readonly int? DayOverride = null;
-		private static bool UseLastestDay = true;
+		private static int? NumDaysFromEnd = 1;
 
 		static int Year => YearOverride ?? DateTime.UtcNow.Year;
 
@@ -41,9 +41,9 @@ namespace AdventOfCode
 			{
 				days = days.Where(day => day.DayNumber == DayOverride.Value);
 			}
-			else if (UseLastestDay)
+			else if (NumDaysFromEnd.HasValue)
 			{
-				days = days.TakeLast(1);
+				days = days.TakeLast(NumDaysFromEnd.Value);
 			}
 
 			foreach (Day day in days)

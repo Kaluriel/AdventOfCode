@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using AdventOfCode.DataTypes;
 
 namespace AdventOfCode.Ext
@@ -15,6 +16,11 @@ namespace AdventOfCode.Ext
 		public static Int64 LowestCommonMultiple(Int64 a, Int64 b)
 		{
 			return Math.Abs(a * b) / GreatestCommonDivider(a, b);
+		}
+
+		public static BigInteger Min(BigInteger a, BigInteger b)
+		{
+			return (a < b) ? a : b;
 		}
 		
 		public static Int64 GreatestCommonDivider(Int64 a, Int64 b)

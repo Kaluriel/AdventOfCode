@@ -9,6 +9,17 @@ namespace AdventOfCode.DataTypes
 		public int X { get; set; }
 		public int Y { get; set; }
 
+		public Point2D(int[] xy)
+		{
+			_ = xy ?? throw new ArgumentNullException(nameof(xy));
+			if (xy.Length != 2)
+			{
+				throw new ArgumentException("Points must be of 2 elements.", nameof(xy));
+			}
+			X = xy[0];
+			Y = xy[1];
+		}
+
 		public Point2D(int x, int y)
 		{
 			X = x;
@@ -32,6 +43,16 @@ namespace AdventOfCode.DataTypes
 			return new Point2D(p1.X / denom, p1.Y / denom);
 		}
 
+		public static Point2D operator %(Point2D p1, Point2D p2)
+		{
+			return new Point2D(p1.X % p2.X, p1.Y % p2.Y);
+		}
+
+		public static Point2D operator %(Point2D p1, int p2)
+		{
+			return new Point2D(p1.X % p2, p1.Y % p2);
+		}
+
 		public static Point2D operator +(Point2D p1, Point2D p2)
 		{
 			return new Point2D(p1.X + p2.X, p1.Y + p2.Y);
@@ -40,6 +61,11 @@ namespace AdventOfCode.DataTypes
 		public static Point2D operator -(Point2D p1, Point2D p2)
 		{
 			return new Point2D(p1.X - p2.X, p1.Y - p2.Y);
+		}
+
+		public static Point2D operator *(Point2D p1, Point2D p2)
+		{
+			return new Point2D(p1.X * p2.X, p1.Y * p2.Y);
 		}
 
 		public static Point2D operator *(Point2D p1, int mul)
@@ -57,9 +83,39 @@ namespace AdventOfCode.DataTypes
 			return (p1.X == p2.X) && (p1.Y == p2.Y);
 		}
 
+		public static bool operator ==(Point2D p1, int p2)
+		{
+			return (p1.X == p2) && (p1.Y == p2);
+		}
+
 		public static bool operator !=(Point2D p1, Point2D p2)
 		{
 			return (p1.X != p2.X) || (p1.Y != p2.Y);
+		}
+
+		public static bool operator !=(Point2D p1, int p2)
+		{
+			return (p1.X != p2) || (p1.Y != p2);
+		}
+
+		public static bool operator <(Point2D p1, int p2)
+		{
+			return (p1.X < p2) && (p1.Y < p2);
+		}
+
+		public static bool operator >(Point2D p1, int p2)
+		{
+			return (p1.X > p2) && (p1.Y > p2);
+		}
+
+		public static bool operator <=(Point2D p1, int p2)
+		{
+			return (p1.X <= p2) && (p1.Y <= p2);
+		}
+
+		public static bool operator >=(Point2D p1, int p2)
+		{
+			return (p1.X >= p2) && (p1.Y >= p2);
 		}
 
 		public Point2D Sign()

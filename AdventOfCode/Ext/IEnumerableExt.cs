@@ -51,5 +51,37 @@ namespace AdventOfCode.Ext
                     .Concat(source.Skip(i + 1))
                 );
         }
+        
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>
+            (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> seenKeys = new HashSet<TKey>();
+            foreach (TSource element in source)
+            {
+                if (seenKeys.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
+        }
+
+        // https://stackoverflow.com/questions/7802822/all-possible-combinations-of-a-list-of-values
+        // {A, B}
+        // becomes
+        // {}
+        // {A}
+        // {B}
+        // {A, B}
+        public static IEnumerable<T[]> Combinations<T>(this IEnumerable<T> source)
+        {
+            _ = source ?? throw new ArgumentNullException(nameof(source));
+            T[] data = source.ToArray();
+
+            return Enumerable
+                .Range(0, 1 << (data.Length))
+                .Select(index => data
+                    .Where((v, i) => (index & (1 << i)) != 0)
+                    .ToArray());
+        }
     }
 }
