@@ -8,6 +8,11 @@ namespace AdventOfCode.Ext
 {
 	public static class MathExt
 	{
+		public static int AbsMod(int x, int m)
+		{
+			return ((x % m) + m) % m;
+		}
+		
 		public static Int64 LowestCommonMultiple(this IEnumerable<Int64> values)
 		{
 			return values.Aggregate(LowestCommonMultiple);
