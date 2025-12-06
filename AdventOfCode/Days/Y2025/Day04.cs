@@ -11,10 +11,7 @@ namespace AdventOfCode.Days.Y2025
 	{
 		protected override Task<object> ExecutePart1Async(int testIndex)
 		{
-			var instructions = Source
-				.SplitNewLine(StringSplitOptions.RemoveEmptyEntries)
-				.Select(x => x.ToCharArray())
-				.ToArray();
+			var instructions = Source.SplitNewLineThenChars(StringSplitOptions.RemoveEmptyEntries);
 			int count = 0;
 
 			Parallel.For(
@@ -74,10 +71,7 @@ namespace AdventOfCode.Days.Y2025
 
 		protected override Task<object> ExecutePart2Async(int testIndex)
 		{
-			var instructions = Source
-				.SplitNewLine(StringSplitOptions.RemoveEmptyEntries)
-				.Select(x => x.ToCharArray())
-				.ToArray();
+			var instructions = Source.SplitNewLineThenChars(StringSplitOptions.RemoveEmptyEntries);
 			int lastCount = 0;
 			int count = 0;
 

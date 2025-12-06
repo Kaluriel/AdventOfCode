@@ -40,6 +40,22 @@ namespace AdventOfCode.Ext
 			);
 		}
 
+		public static char[][] SplitNewLineThenChars(this string str, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
+		{
+			return str
+				.SplitNewLine(stringSplitOptions)
+				.Select(x => x.ToCharArray())
+				.ToArray();
+		}
+
+		public static string[][] SplitNewLineThenWhitespace(this string str, StringSplitOptions stringSplitOptions = StringSplitOptions.None)
+		{
+			return str
+				.SplitNewLine(stringSplitOptions)
+				.Select(x => x.Split([' ', '\t'], stringSplitOptions).ToArray())
+				.ToArray();
+		}
+
 		public static string Replace(this string str, KeyValuePair<string, string>[] valuePairs)
 		{
 			StringBuilder strBuilder = new StringBuilder(str);

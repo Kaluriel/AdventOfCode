@@ -13,6 +13,11 @@ namespace AdventOfCode.Ext
 			return val - '0';
 		}
 		
+		public static long AsLong(this char val)
+		{
+			return val - '0';
+		}
+		
 		public static ulong AsULong(this char val)
 		{
 			return (ulong)(val - '0');
